@@ -1,0 +1,4 @@
+<!--pages/map/detail/detail.wxml-->
+<view>
+{{showId}}
+</view>

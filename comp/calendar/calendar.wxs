@@ -1,0 +1,25 @@
+function compareSameDay(obj1, obj2) {
+  if(!obj2){
+    return false;
+  }
+  if (obj1.date == obj2.date) {
+    if (obj1.month == obj2.month) {
+      if (obj1.year == obj2.year) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function calDisableDate(obj) {
+  if (!obj.date) { // 日期为""
+    return true;
+  }
+  return obj.stopBooking // 属性为不可以预约，字段还没定，后期更改
+}
+
+module.exports = {
+  compareSameDay: compareSameDay,
+  calDisableDate: calDisableDate
+};

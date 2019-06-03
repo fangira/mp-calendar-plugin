@@ -1,0 +1,17 @@
+.dataList1{
+  padding: 20rpx;
+  border-bottom: 1px solid #ccc;
+}
+.title{
+  font-size: 48rpx;
+  font-weight: 900;
+  line-height: 48rpx;
+  height: 48rpx;
+  overflow: hidden;
+}
+.context{
+  font-size: 32rpx;
+  line-height: 32rpx;
+  height: 64rpx;
+  overflow: hidden;
+}

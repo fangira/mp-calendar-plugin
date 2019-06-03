@@ -1,0 +1,89 @@
+.panel {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: -600rpx;
+  left: 0;
+  right: 0;
+  height: 600rpx;
+  background-color: rgb(161, 224, 216);
+  transition: all 0.2s ease;
+  transform: translateY(0);
+  z-index: 2;
+  padding: 20rpx;
+}
+
+.panel_up {
+  transform: translateY(-600rpx);
+}
+
+.shade {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.p_row {
+  display: flex;
+}
+
+.p_unit {
+  flex: 1;
+  text-align: center;
+  font-size: 24rpx;
+  position: relative;
+}
+
+button.p_unit {
+  background-color: transparent;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  height: 80rpx;
+  align-content: space-around;
+  line-height: 40rpx;
+}
+
+button.p_unit::after {
+  border: none;
+}
+
+button.p_unit[disabled] {
+  background: none;
+}
+
+.p_stopBooking {
+  font-size: 18rpx;
+}
+
+.today_unit {
+  color: red;
+}
+
+.selected_unit {
+  color: blue;
+}
+
+.selected_unit ::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: block;
+  width: 75rpx;
+  height: 75rpx;
+  border-radius: 50%;
+  border: 2px solid red;
+}
+
+.p_next_btn{
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  font-size: 24rpx;
+  color:blue;
+}

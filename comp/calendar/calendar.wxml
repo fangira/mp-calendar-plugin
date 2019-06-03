@@ -1,0 +1,35 @@
+<wxs src="./calendar.wxs" module="tools"></wxs>
+
+<view class="calendar">
+  <view bindtap="tap_showCalendar">taptap</view>
+  <view class="panel {{showPanel?'panel_up':''}}">
+    <block wx:if="{{!showPeriod}}">
+    <view class="p_row">
+      <button class="p_unit" bindtap='lastMonth'>《</button>
+      <view class="p_unit">
+        {{renderTime.year}}年{{renderTime.month+1}}月
+      </view>
+      <button class="p_unit" bindtap='nextMonth'>》</button>
+
+    </view>
+    <view class="p_row">
+      <view class="p_unit" wx:for="{{['一','二','三','四','五','六','日']}}" wx:key="index">{{item}}</view>
+    </view>
+    <view class="p_row" wx:for="{{renderArr}}" wx:for-item="weeks" wx:key="index">
+      <button class="p_unit {{tools.compareSameDay(item,nowTime)?'today_unit':''}} {{tools.compareSameDay(item,selectedTime)?'selected_unit':''}}" wx:for="{{weeks}}" wx:key="index" bindtap='tap_select_date' data-year="{{item.year}}" data-month="{{item.month}}"
+        data-date="{{item.date}}" disabled='{{tools.calDisableDate(item)}}'>
+        <block wx:if="{{item.date}}">
+          <text>{{item.date}}</text>
+          <text class="p_stopBooking" wx:if="{{item.stopBooking}}">已满</text>
+          <text class="p_stopBooking" wx:else>可预约</text>
+        </block>
+      </button>
+    </view>
+    <view class="p_next_btn" bindtap='tap_to_period'>确认</view>
+    </block>
+    <block wx:else>
+      <view>12321321</view>
+    </block>
+  </view>
+  <view class="shade" wx:if="{{showPanel}}" bindtap='tap_hideCalendar'></view>
+</view>

@@ -1,0 +1,9 @@
+<view wx:for="{{dataList}}" 
+wx:key="{{index}}"
+class="dataList1"
+bindtap="goToDetail"
+data-id="{{item.id}}"
+>
+  <view class="title">{{item.title}}</view>
+  <view class="context">{{item.content}}</view>
+</view>

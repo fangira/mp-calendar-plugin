@@ -1,0 +1,32 @@
+<!-- <swiper
+  indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}"
+  interval="{{interval}}"
+  duration="{{duration}}"
+  vertical="true"
+  
+>
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image
+      style="width:100%" 
+      src="{{item}}" class="slide-image" width="355" height="150" />
+    </swiper-item>
+  </block>
+</swiper> -->
+
+<!-- <view style="width:375rpx;background-color:#00f;font-size:40rpx">375rpx</view>
+<view style="width:50vw;background-color:#0f0;font-size:40rpx">50%</view> -->
+<view style="padding-top:20rpx">
+  <view 
+  class="perView" 
+  style="padding:20rpx;border-bottom:1px solid #888;"
+  wx:for="{{dataArr}}" 
+  wx:key="{{index}}"
+  bindtap="tapEvent"
+  data-id='{{item.title}}'
+  >
+    <view class="title" style='font-weight:900;font-size:48rpx;line-height:48rpx;overflow:hidden;height:96rpx'>{{item.title}}</view>
+    <view class="content" style="font-size:32rpx;height:64rpx;line-height:32rpx;overflow:hidden">{{item.content}}</view>
+  </view>
+</view>
