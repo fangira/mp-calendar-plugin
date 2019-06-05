@@ -12,6 +12,11 @@
   padding: 20rpx;
 }
 
+.showArea {
+  width: 100vw;
+  height: 80rpx;
+}
+
 .panel_up {
   transform: translateY(-600rpx);
 }
@@ -37,7 +42,7 @@
   position: relative;
 }
 
-button.p_unit {
+view.p_unit {
   background-color: transparent;
   border-radius: 0;
   display: flex;
@@ -47,12 +52,9 @@ button.p_unit {
   line-height: 40rpx;
 }
 
-button.p_unit::after {
-  border: none;
-}
-
-button.p_unit[disabled] {
-  background: none;
+view.p_unit_disabled {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.658);
 }
 
 .p_stopBooking {
@@ -67,12 +69,12 @@ button.p_unit[disabled] {
   color: blue;
 }
 
-.selected_unit ::after {
+.selected_unit .selected_unit_circle {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   display: block;
   width: 75rpx;
   height: 75rpx;
@@ -80,10 +82,20 @@ button.p_unit[disabled] {
   border: 2px solid red;
 }
 
-.p_next_btn{
+.p_next_btn {
   position: absolute;
-  top: 20rpx;
-  right: 20rpx;
+  top: 0rpx;
+  right: 0rpx;
   font-size: 24rpx;
-  color:blue;
+  color: blue;
+  padding: 20rpx;
+}
+
+.periodList {
+  height: 550rpx;
+  overflow: hidden;
+}
+
+.periodList_box {
+  text-align: center;
 }

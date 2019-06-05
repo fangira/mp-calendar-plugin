@@ -1,34 +1,46 @@
 <wxs src="./calendar.wxs" module="tools"></wxs>
 
 <view class="calendar">
-  <view bindtap="tap_showCalendar">taptap</view>
+  <view class="showArea" bindtap="tap_showCalendar">
+    <text wx:if='{{renderSelectedTime}}'>{{renderSelectedTime.year}}年{{renderSelectedTime.month+1}}月{{renderSelectedTime.date}}日</text>
+    <text wx:if="{{selectedPeriod}}">{{selectedPeriod}}</text>
+  </view>
   <view class="panel {{showPanel?'panel_up':''}}">
     <block wx:if="{{!showPeriod}}">
-    <view class="p_row">
-      <button class="p_unit" bindtap='lastMonth'>《</button>
-      <view class="p_unit">
-        {{renderTime.year}}年{{renderTime.month+1}}月
-      </view>
-      <button class="p_unit" bindtap='nextMonth'>》</button>
+      <view class="p_row">
+        <view class="p_unit" bindtap='lastMonth'>《</view>
+        <view class="p_unit">
+          {{renderTime.year}}年{{renderTime.month+1}}月
+        </view>
+        <view class="p_unit" bindtap='nextMonth'>》</view>
 
-    </view>
-    <view class="p_row">
-      <view class="p_unit" wx:for="{{['一','二','三','四','五','六','日']}}" wx:key="index">{{item}}</view>
-    </view>
-    <view class="p_row" wx:for="{{renderArr}}" wx:for-item="weeks" wx:key="index">
-      <button class="p_unit {{tools.compareSameDay(item,nowTime)?'today_unit':''}} {{tools.compareSameDay(item,selectedTime)?'selected_unit':''}}" wx:for="{{weeks}}" wx:key="index" bindtap='tap_select_date' data-year="{{item.year}}" data-month="{{item.month}}"
-        data-date="{{item.date}}" disabled='{{tools.calDisableDate(item)}}'>
-        <block wx:if="{{item.date}}">
-          <text>{{item.date}}</text>
-          <text class="p_stopBooking" wx:if="{{item.stopBooking}}">已满</text>
-          <text class="p_stopBooking" wx:else>可预约</text>
-        </block>
-      </button>
-    </view>
-    <view class="p_next_btn" bindtap='tap_to_period'>确认</view>
+      </view>
+      <view class="p_row">
+        <view class="p_unit" wx:for="{{['一','二','三','四','五','六','日']}}" wx:key="index">{{item}}</view>
+      </view>
+      <view class="p_row" wx:for="{{renderArr}}" wx:for-item="weeks" wx:key="index">
+        <view class="p_unit {{tools.compareSameDay(item,nowTime)?'today_unit':''}} {{tools.compareSameDay(item,selectedTime)?'selected_unit':''}} {{tools.calDisableDate(item)?'p_unit_disabled':''}}" wx:for="{{weeks}}" wx:key="index" bindtap='{{tools.calDisableDate(item)?"":"tap_select_date"}}'
+          data-year="{{item.year}}" data-month="{{item.month}}" data-date="{{item.date}}">
+          <block wx:if="{{item.date}}">
+            <text>{{item.date}}</text>
+            <text class="p_stopBooking" wx:if="{{item.stopBooking}}">已满</text>
+            <text class="p_stopBooking" wx:else>可预约</text>
+            <view class="selected_unit_circle"></view>
+          </block>
+        </view>
+      </view>
+      <view class="p_next_btn" catchtap='tap_to_period'>确认</view>
     </block>
     <block wx:else>
-      <view>12321321</view>
+      <view class="flex_box">
+        <view>当前日期为：{{renderSelectedTime.year}}年{{renderSelectedTime.month+1}}月{{renderSelectedTime.date}}日</view>
+        <picker-view class="periodList" bindchange="change_period">
+          <picker-view-column>
+            <view class="periodList_box" wx:for="{{schoolPeriod}}" wx:key="index">{{item}}</view>
+          </picker-view-column>
+        </picker-view>
+        <view class="p_next_btn" bindtap='tap_to_finishPeriod'>确认</view>
+      </view>
     </block>
   </view>
   <view class="shade" wx:if="{{showPanel}}" bindtap='tap_hideCalendar'></view>

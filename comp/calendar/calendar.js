@@ -37,7 +37,11 @@ Component({
     renderTime: null,
     nowTime: null,
     selectedTime: null,
-    showPeriod: false
+    renderSelectedTime:null,
+    showPeriod: false,
+    schoolPeriod: null,
+    selectedPeriodIndex: 0,
+    selectedPeriod:null
   },
 
   /**
@@ -47,14 +51,15 @@ Component({
     // 打开日历
     tap_showCalendar(e) {
       this.setData({
-        showPanel: true
+        showPanel: true,
+        selectedTime: null
       })
     },
     // 隐藏日历
     tap_hideCalendar(e) {
       this.setData({
         showPanel: false,
-        showPeriod:false
+        showPeriod: false
       })
     },
     //构造数组
@@ -107,6 +112,9 @@ Component({
     },
     // 上一月
     lastMonth() {
+      if(1){
+        return 
+      }
       let {
         renderTime
       } = this.data;
@@ -148,10 +156,55 @@ Component({
         selectedTime: e.currentTarget.dataset
       });
     },
+    // 确定日期
     tap_to_period() {
+      // 如果没有选择任何时间
+      if (!this.data.selectedTime) {
+        wx.showToast({
+          title: '请选择时间',
+          icon: 'none',
+          duration: 2000,
+        })
+      } else {
+        this.setData({
+          showPeriod: true,
+          renderSelectedTime: this.data.selectedTime,
+          selectedPeriodIndex:0
+        });
+      }
+
+
+    },
+    // 转换可选时段
+    timeToPeriod(startTime, endTime) {
+      let startNum = startTime.slice(0, -3).split(":").join("") * 1;
+      let endNum = endTime.slice(0, -3).split(":").join("") * 1;
+      let arr = ['全部时段'];
+      for (var i = startNum; i <= endNum; i = i + 50) {
+        let p;
+        let t = i + "";
+        if (i % 100) {
+          p = t.slice(0, -2) + ":30";
+        } else {
+          p = t.slice(0, -2) + ":00";
+        }
+        arr.push(p);
+      }
       this.setData({
-        showPeriod: true
+        schoolPeriod: arr
       })
+    },
+    change_period(e) {
+      this.setData({
+        selectedPeriodIndex: e.detail.value[0]
+      })
+    },
+    tap_to_finishPeriod() {
+      this.setData({
+        selectedPeriod: this.data.schoolPeriod[this.data.selectedPeriodIndex],
+        showPanel: false,
+        showPeriod:false
+      });
     }
   },
   lifetimes: {
@@ -161,7 +214,8 @@ Component({
         nowTime,
         renderTime: nowTime
       })
-      this.createRenderArray(nowTime)
+      this.createRenderArray(nowTime);
+      this.timeToPeriod('9:00:00', '16:00:00');
     },
     // 在组件实例被从页面节点树移除时执行
     detached: function() {

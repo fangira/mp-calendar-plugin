@@ -5,9 +5,9 @@
 	},
 	"setting": {
 		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
 		"newFeature": true,
 		"nodeModules": false,
 		"autoAudits": false,
@@ -15,7 +15,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.4",
+	"libVersion": "2.6.5",
 	"appid": "wx1e576915172f4de3",
 	"projectname": "mp",
 	"debugOptions": {
