@@ -32,16 +32,28 @@ Component({
    * 组件的初始数据
    */
   data: {
+    // 是否展开日历
     showPanel: false,
+    // 当月日历的日期数组
     renderArr: null,
+    // 日历选择后渲染时间 年月日
     renderTime: null,
+    // 现在的时间 年月日
     nowTime: null,
+    // 选择后的日子 
     selectedTime: null,
-    renderSelectedTime:null,
+    // 选择后+确认后的日子
+    renderSelectedTime: null,
+    // 是否展开时段
     showPeriod: false,
+    // 本学校可选时段数组
     schoolPeriod: null,
+    // 选择的时段数组下标
     selectedPeriodIndex: 0,
-    selectedPeriod:null
+    // 选择+确定的时段数组下标
+    selectedPeriod: null,
+    // 能否进入下一个月
+    canNextMonth: true
   },
 
   /**
@@ -112,8 +124,8 @@ Component({
     },
     // 上一月
     lastMonth() {
-      if(1){
-        return 
+      if (this.data.canNextMonth) {
+        return
       }
       let {
         renderTime
@@ -126,13 +138,18 @@ Component({
         newTime.month = renderTime.month - 1;
       }
       this.setData({
-        renderTime: Object.assign({}, renderTime, newTime)
+        renderTime: Object.assign({}, renderTime, newTime),
+        canNextMonth: true
+
       }, () => {
         this.createRenderArray(this.data.renderTime);
       });
     },
     // 下一月
     nextMonth() {
+      if (!this.data.canNextMonth) {
+        return
+      }
       let {
         renderTime
       } = this.data;
@@ -144,7 +161,8 @@ Component({
         newTime.month = renderTime.month + 1;
       }
       this.setData({
-        renderTime: Object.assign({}, renderTime, newTime)
+        renderTime: Object.assign({}, renderTime, newTime),
+        canNextMonth:false
       }, () => {
         this.createRenderArray(this.data.renderTime);
       });
@@ -169,7 +187,7 @@ Component({
         this.setData({
           showPeriod: true,
           renderSelectedTime: this.data.selectedTime,
-          selectedPeriodIndex:0
+          selectedPeriodIndex: 0
         });
       }
 
@@ -177,8 +195,8 @@ Component({
     },
     // 转换可选时段
     timeToPeriod(startTime, endTime) {
-      let startNum = startTime.slice(0, -3).split(":").join("") * 1;
-      let endNum = endTime.slice(0, -3).split(":").join("") * 1;
+      let startNum = startTime.split(":").join("") * 1;
+      let endNum = endTime.split(":").join("") * 1;
       let arr = ['全部时段'];
       for (var i = startNum; i <= endNum; i = i + 50) {
         let p;
@@ -203,7 +221,7 @@ Component({
       this.setData({
         selectedPeriod: this.data.schoolPeriod[this.data.selectedPeriodIndex],
         showPanel: false,
-        showPeriod:false
+        showPeriod: false
       });
     }
   },
@@ -215,7 +233,7 @@ Component({
         renderTime: nowTime
       })
       this.createRenderArray(nowTime);
-      this.timeToPeriod('9:00:00', '16:00:00');
+      this.timeToPeriod('9:00', '16:00');
     },
     // 在组件实例被从页面节点树移除时执行
     detached: function() {
