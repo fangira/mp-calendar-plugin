@@ -162,7 +162,7 @@ Component({
       }
       this.setData({
         renderTime: Object.assign({}, renderTime, newTime),
-        canNextMonth:false
+        canNextMonth: false
       }, () => {
         this.createRenderArray(this.data.renderTime);
       });
@@ -188,6 +188,11 @@ Component({
           showPeriod: true,
           renderSelectedTime: this.data.selectedTime,
           selectedPeriodIndex: 0
+        }, () => {
+          this.triggerEvent('returnSelectTime', {
+            renderSelectedTime: this.data.renderSelectedTime,
+            selectedPeriod: this.data.selectedPeriod
+          });
         });
       }
 
@@ -222,6 +227,11 @@ Component({
         selectedPeriod: this.data.schoolPeriod[this.data.selectedPeriodIndex],
         showPanel: false,
         showPeriod: false
+      }, () => {
+        this.triggerEvent('returnSelectTime', {
+          renderSelectedTime: this.data.renderSelectedTime,
+          selectedPeriod: this.data.selectedPeriod
+        });
       });
     }
   },

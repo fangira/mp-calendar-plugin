@@ -1,1 +1,1 @@
-<calendar></calendar>
+<calendar bind:returnSelectTime="onMyEvent"></calendar>
